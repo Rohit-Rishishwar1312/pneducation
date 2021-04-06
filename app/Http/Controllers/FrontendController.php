@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Banner;
 use App\Learn;
+use App\Cart;
 use App\Navfoot;
 use App\Category;
 use App\Course;
 use App\User;
+use App\Notification;
+use Illuminate\Support\Facades\Hash;
+use Auth;
+use Session;
+
 class FrontendController extends Controller
 {
     public function index()
@@ -18,7 +24,8 @@ class FrontendController extends Controller
         $navf = Navfoot::all();
         $catego = Category::all();
         $course = Course::all();
-        return view('front.index',Compact('bann','lear','navf','catego','course'));
+        $notific= Notification::all();
+        return view('front.index',Compact('bann','lear','navf','catego','course','notific'));
     }
     //frontend course_detail
     public function course_detail($id)
@@ -53,7 +60,7 @@ class FrontendController extends Controller
         $u = new User();
         $u->name=$a->name;
         $u->email=$a->email;
-        $u->password=$a->password;
+        $u->password=Hash::make($a->password);
         $u->save();
         if($u)
         {
@@ -66,20 +73,22 @@ class FrontendController extends Controller
         $navf = Navfoot::all();
         return view('front.login',Compact('navf'));
     }
-    public function dologin(Request $l)
+    public function dologin(Request $a)
     {
-        //print_r($l->all());
-        $query = User::where('email',$l->email)->where('password',$l->password)->get()->first();
-        // print_r($query);
-        if($query)
-        {
-            return redirect('signup');
+        $session_id = Session::getId();
+        $data=$a->all();
+        if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
+            Cart::where('session_id',$session_id)->update(['user_email'=>$data['email']]);
+            return redirect("goto_cart")->with('message','Login Successfully');
         }
-        else
-        {
-            return redirect('front/login');
-        }
+        else{
+            return redirect("front/login")->with('message','Login Unsuccessfully');
+        }  
     }
+    public function front_logout(Request $request) {
+        Auth::logout();
+        return redirect('front/login');
+     }
     
 }
 

@@ -3,6 +3,7 @@
 
 <html lang="en" class="no-js">
 <head>
+	<link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/pn-images.appspot.com/o/logo%2Fcolorlogo.png?alt=media&token=0386f0aa-e1e1-4950-924f-3eedaa82d967">
 	<title>@yield("title")</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -17,6 +18,12 @@
 	<link rel="stylesheet" type="text/css" href="{{url('css/fonts/elegant-icons/style.css')}}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{{url('css/fonts/iconfont/material-icons.css')}}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{{url('css/style.css')}}">
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script> $(document).ready(function(){ $('#mymodel').modal('show');}); </script>
 
 </head>
 <body>
@@ -41,7 +48,12 @@
 							<div class="right-top-line">
 								<ul class="top-menu">
 									<li><a href="#">Purchase Now</a></li>
-									<li><a href="about.html">About</a></li>
+									@if(Auth::check())
+									<button class="shop-icon">
+									<a href="{{url('front/logout')}}" class="text-white">logout</a>
+								    </button>
+									@endif
+									<li><a href="{{url('aboutus')}}">About</a></li>
 									<li><a href="blog.html">News</a></li>
 								</ul>
 								<button class="search-icon">
@@ -73,7 +85,7 @@
 					<a class="navbar-brand" href="index.html">
 						@foreach($navf as $n)
 						
-						<img src="{{ url('/uploade/'.$n->nf_logo_image) }}" alt="">
+						<img src="{{ url('/uploade/'.$n->nf_logo_image) }}" alt="" style="width:250px;">
 						@endforeach
 				
 					</a>
@@ -85,14 +97,30 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav mr-auto">
 							<li class="drop-link">
-								<a class="active" href="index.html">Home</a>
+								<a class="active" href="{{url('index')}}">Home</a>
 							</li>
 							
 							<li class="drop-link">
 								<a href="{{url('courses')}}">Courses</a>
 							</li>
-							<li><a href="events.html">Events</a></li>
-							<li><a href="{{url('team')}}">Our Team</a></li>
+							<li><a href="{{url('team')}}">Team</a></li>
+							<li class="drop-link">
+								<a href="#">Workshop <i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown">
+									<li>
+										<a href="{{url('front/Xiaomi')}}">Xiaomi MI Company</a>
+									</li>
+									<li>
+										<a href="{{url('front/Bentchair')}}">Bentchair Company</a>
+									</li>
+									<li>
+										<a href="{{url('front/MPCT')}}">MPCT College</a>
+									</li>
+									<li>
+										<a href="{{url('front/RJIT')}}">RJIT College</a>
+									</li>
+								</ul>
+							</li>
 							<li><a href="{{url('intern')}}">Intern</a></li>
 							<li><a href="{{url('placement')}}">Placement</a></li>
 							<li><a href="{{url('contact')}}">Contact</a></li>
@@ -122,14 +150,28 @@
 				<nav class="mobile-nav">
 					<ul class="mobile-menu-list">
 						<li>
-							<a href="index.html">Home</a>
+							<a href="{{url('index')}}">Home</a>
 						</li>
 						<li>
 							<a href="{{url('courses')}}">Courses</a>
 						</li>
-						<li>
-							<a href="events.html">Events</a>
-						</li>
+                        <li class="drop-link">
+								<a href="">Workshop <i class="fa fa-angle-down"></i></a>
+								<ul class="dropdown">
+									<li>
+										<a href="{{url('front/Xiaomi')}}">Xiaomi MI Company</a>
+									</li>
+									<li>
+										<a href="{{url('front/Bentchair')}}">Bentchair Company</a>
+									</li>
+									<li>
+										<a href="{{url('front/MPCT')}}">MPCT College</a>
+									</li>
+									<li>
+										<a href="{{url('front/RJIT')}}">RJIT College</a>
+									</li>
+								</ul>
+							</li>
 						<li>
 							<a href="{{url('team')}}">Our Team</a>
 
@@ -141,8 +183,14 @@
 								<a href="{{url('placement')}}">Placement</a>
 						</li>
 						<li>
-							<a href="contact.html">Contact</a>
+							<a href="{{url('contact')}}">Contact</a>
 						</li>
+						<li>
+						<a href="{{url('signup')}}">Signup</a>
+					    </li>
+					    <li>
+						<a href="{{url('front/login')}}">Login</a>
+					    </li>
 					</ul>
 				</nav>
 			</div>

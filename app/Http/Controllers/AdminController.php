@@ -67,5 +67,17 @@ class AdminController extends Controller
         $co= FrontContact::all();
         return view('admin.contact_data',Compact('co'));
     }
+    public function notification()
+    {
+        return view('admin.notification');
+    }
+    public function workshop()
+    {
+        return view('admin.workshop');
+    }
+     public function coupan()
+    {
+        return view('admin.coupan');
+    }
     
 }

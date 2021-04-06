@@ -11,7 +11,8 @@
    	@csrf
    	Email:<input type="text" name="email" value="" class="form-control"><br><br>
    	Password:<input type="text" name="password" value="" class="form-control"><br><br>
-   	<input type="submit" name="submit" value="submit" class="btn btn-primary" style="margin-bottom: 20px;">
+   	<input type="submit" name="submit" value="submit" class="btn btn-primary" style="margin-bottom: 20px;"><br>
+    <a href="{{url('signup')}}">Create accout</a>
    </form>
    </div><!--end col md 6-->
    <div class="col-md-3"></div>

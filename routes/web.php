@@ -30,6 +30,9 @@ Route::get('admin/placement','AdminController@placement');
 Route::get('admin/intern','AdminController@intern');
 Route::get('admin/contact','AdminController@contact');
 Route::get('admin/contact_data','AdminController@contact_data');
+Route::get('admin/notification','AdminController@notification');
+Route::get('admin/workshop','AdminController@workshop');
+Route::get('admin/coupan','AdminController@coupan');
 //Addcategory Route work + curd
 
 Route::post('addcategory/insert','CategoryController@insert');
@@ -58,19 +61,44 @@ Route::get('admin/placement','PlacementController@display');
 Route::get('addplacement/delete/{id}','PlacementController@delete');
 Route::get('addplacement/edit/{id}','PlacementController@edit');
 Route::post('addplacement/update','PlacementController@update');
-//Placement route work + curd
+//intern route work + curd
 Route::post('addintern/insert','InternController@insert');
 Route::get('admin/intern','InternController@display');
 Route::get('addintern/delete/{id}','InternController@delete');
 Route::get('addintern/edit/{id}','InternController@edit');
 Route::post('addintern/update','InternController@update');
 
-//Placement route work + curd
+//contact route work + curd
 Route::post('addcontact/insert','ContactController@insert');
 Route::get('admin/contact','ContactController@display');
 Route::get('addcontact/delete/{id}','ContactController@delete');
 Route::get('addcontact/edit/{id}','ContactController@edit');
 Route::post('addcontact/update','ContactController@update');
+
+//notification route work + curd
+Route::post('addnotification/insert','NotificationController@insert');
+Route::get('admin/notification','NotificationController@display');
+Route::get('addnotification/delete/{id}','NotificationController@delete');
+Route::get('addnotification/edit/{id}','NotificationController@edit');
+Route::post('addnotification/update','NotificationController@update');
+
+//workshop route work + curd
+Route::post('addworkshop/insert','WorkshopController@insert');
+Route::get('admin/workshop','WorkshopController@display');
+Route::get('addworkshop/delete/{id}','WorkshopController@delete');
+Route::get('addworkshop/edit/{id}','WorkshopController@edit');
+Route::post('addworkshop/update','WorkshopController@update');
+
+//coupan route work + curd
+Route::post('addcoupan/insert','CoupanController@insert');
+Route::get('admin/coupan','CoupanController@display');
+Route::get('addcoupan/delete/{id}','CoupanController@delete');
+Route::get('addcoupan/edit/{id}','CoupanController@edit');
+Route::post('addcoupan/update','CoupanController@update');
+
+//cart
+Route::get('cart/quantity_update/{id}/{course_quantity}','FrontController@quantity_update');
+
 
 
 
@@ -90,6 +118,16 @@ Route::get('placement','FrontController@placement');
 Route::get('intern','FrontController@intern');
 Route::get('contact','FrontController@contact');
 Route::post('front/addcontact/insert','FrontContactController@insert');
+Route::get('aboutus','FrontController@aboutus');
+//logout front
+Route::get('front/logout','FrontendController@front_logout');
+// Frontend Work Workshop
+Route::get('front/MPCT','FrontController@MPCT_workshop');
+Route::get('front/Xiaomi','FrontController@Xiaomi_workshop');
+Route::get('front/Bentchair','FrontController@Bentchair_workshop');
+Route::get('front/RJIT','FrontController@RJIT_workshop');
+//checkout
+Route::get('checkout','FrontController@checkout');
 
 
 //Addbanner Route work + curd
@@ -112,8 +150,6 @@ Route::get('admin/learn','LearnController@display');
 Route::get('addlearn/delete/{id}','LearnController@delete');
 Route::get('addlearn/edit/{id}','LearnController@edit');
 Route::post('addlearn/update','LearnController@update');
-
-
 
 
 

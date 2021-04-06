@@ -2,6 +2,34 @@
 @section("title",'Home | Pneducation')
 
 @section("content")
+    <div class="modal fade" id="mymodel" style="padding-top: 175px;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-info lg">
+        <h5 class="modal-title" >Notifications</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	
+      	@foreach($notific as $no)
+        
+        <ul>
+			<li>
+			    <h3 style="font-weight: bold;"><img src="https://www.rgpv.ac.in/Images/new_icon_blink.gif">{{$no->notification}}</h3>
+			    <p style="font-weight: bold;color:green;">Registration starts: {{$no->s_date}}</p>
+			    <p style="font-weight: bold;color:red;">Registration Ends: {{$no->e_date}}</p>
+			</li>
+		</ul>
+
+		@endforeach
+
+      </div>
+      
+    </div>
+  </div>
+</div>
 
      <!-- home-section 
 			================================================== -->
@@ -199,7 +227,7 @@
 						<div class="col-lg-6 col-md-12">
 							<div class="collection-post">
 								<div class="inner-collection">
-									<a href="{{url('category_courses/'.$cat->id)}}"><img src="{{ url('/uploade/'.$cat->ca_image)}}" alt="" style="height: 400px; width: 620px;"></a>
+									<a href="{{url('category_courses/'.$cat->id)}}"><img src="{{ url('/uploade/'.$cat->ca_image)}}" alt="" style="height: 400px;" width="100%"></a>
 									<a href="{{url('category_courses/'.$cat->id)}}" class="hover-post">
 										<span class="title">{{$cat->name}}</span>
 										<span class="numb-courses">3 Courses</span>

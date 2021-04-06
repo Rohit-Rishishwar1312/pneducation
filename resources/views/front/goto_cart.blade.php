@@ -34,6 +34,7 @@
 									</tr>
 								</thead>
 								<tbody>
+									<?php $total_amount=0; ?>
 									@foreach($carts as $c)
 									<tr>
 										<td class="product-remove">
@@ -49,10 +50,13 @@
 											{{$c->course_price}}
 										</td>
 										<td class="product-quantity">
-											<input type="number" value="1"/>
+											<a href="{{url('cart/quantity_update/'.$c->id.'/1')}}">+</a>
+											<input type="text" name="course_quantity" value="{{$c->course_quantity}}">
+											<a href="{{url('cart/quantity_update/'.$c->id.'/-1')}}">-</a>
 										</td>
-										<td class="product-subtotal">$244.00</td>
+										<td class="product-subtotal">{{$c->course_price*$c->course_quantity}}</td>
 									</tr>
+									<?php $total_amount=$total_amount+($c->course_price*$c->course_quantity); ?>
 									@endforeach
 									
 									<tr class="coupon-line"> 
@@ -73,15 +77,15 @@
 									<tbody>
 										<tr class="cart-subtotal">
 											<th>Subtotal</th>
-											<td>273.99</td>
+											<td><?php echo $total_amount; ?></td>
 										</tr>
 										<tr class="order-total">
 											<th>Total</th>
-											<td>273.99</td>
+											<td><?php echo $total_amount; ?></td>
 										</tr>
 									</tbody>
 								</table>
-								<a href="checkout.html" class="checkout-button">Proceed to checkout</a>
+								<a href="{{url('front/login')}}">Proceed to checkout</a>
 							</div>
 						</div>
 					</div>
