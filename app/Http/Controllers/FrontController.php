@@ -40,9 +40,27 @@ class FrontController extends Controller
     {
         //echo "rohit";
         // print_r($c->all());
+        if(Auth::check())
+        {
+         $session_id = Session::getId();
+         $user_email= Auth::User()->email;   
+         $cart = new Cart();
+         $cart->course_id=$c->course_id;
+         $cart->course_name=$c->course_name;
+         $cart->course_price=$c->course_price;
+         $cart->course_image=$c->course_image;
+         $cart->session_id=$session_id;
+         $cart->user_email=$user_email;
+         $cart->save();
+         if($cart)
+         {
+            return redirect('goto_cart');
+         }
+        }
+        else
+        {
         $session_id = Session::getId();
         //print_r($session_id);
-
         $cart = new Cart();
         $cart->course_id=$c->course_id;
         $cart->course_name=$c->course_name;
@@ -50,12 +68,11 @@ class FrontController extends Controller
         $cart->course_image=$c->course_image;
         $cart->session_id=$session_id;
         $cart->save();
-        if($cart)
-        {
+         if($cart)
+         {
             return redirect('goto_cart');
+         }
         }
-
-
     }
     public function team()
     {
@@ -131,8 +148,13 @@ class FrontController extends Controller
 
     public function checkout()
     {
+        if(Auth::check())
+        {
+          $user_email= Auth::User()->email; 
+          $carts= Cart::where('user_email',$user_email)->get(); 
+        }
         $navf= Navfoot::all();
-        return view('front.checkout',Compact('navf'));
+        return view('front.checkout',Compact('navf','carts'));
     }
 
 }

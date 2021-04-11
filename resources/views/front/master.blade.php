@@ -42,6 +42,10 @@
 							<p><i class="material-icons">phone</i> <span>{{$n->nf_phone}}</span></p>
 							<p><i class="material-icons">email</i> <span>{{$n->nf_email}}</span></p>
 							@endforeach
+
+							@if(Auth::check())
+							<p><i class="fa fa-user" aria-hidden="true"></i> <span>welcome {{ Auth::user()->name }}</span></p>
+							@endif
 							
 						</div>
 						<div class="col-lg-6">

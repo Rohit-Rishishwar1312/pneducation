@@ -128,6 +128,8 @@ Route::get('front/Bentchair','FrontController@Bentchair_workshop');
 Route::get('front/RJIT','FrontController@RJIT_workshop');
 //checkout
 Route::get('checkout','FrontController@checkout');
+//course order route work 
+Route::post('front/checkout/insert_order','CourseOrderController@insert');
 
 
 //Addbanner Route work + curd

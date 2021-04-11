@@ -85,7 +85,11 @@
 										</tr>
 									</tbody>
 								</table>
+								@if(Auth::check())
+								<a href="{{url('checkout')}}">Proceed to checkout</a>
+								@else
 								<a href="{{url('front/login')}}">Proceed to checkout</a>
+								@endif
 							</div>
 						</div>
 					</div>
