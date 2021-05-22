@@ -14,6 +14,7 @@ use App\Notification;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Session;
+use DB;
 
 class FrontendController extends Controller
 {
@@ -22,37 +23,42 @@ class FrontendController extends Controller
         $bann = Banner::all();
         $lear = Learn::all();
         $navf = Navfoot::all();
+        $cart= Cart::all();
         $catego = Category::all();
         $course = Course::all();
         $notific= Notification::all();
-        return view('front.index',Compact('bann','lear','navf','catego','course','notific'));
+        return view('front.index',Compact('bann','lear','navf','catego','course','notific','cart'));
     }
     //frontend course_detail
     public function course_detail($id)
     {
         $course = Course::find($id);
+        $cart= Cart::all();
         $navf= Navfoot::all();
-        return view('front.course_detail',Compact('navf','course'));
+        return view('front.course_detail',Compact('navf','course','cart'));
     }
     public function courses()
     {
         $navf = Navfoot::all();
+        $cart= Cart::all();
         $catego = Category::all();
         $course = Course::all();
-        return view('front.courses',Compact('navf','course','catego'));
+        return view('front.courses',Compact('navf','course','catego','cart'));
     }
     public function category_courses($id)
     {
         $navf = Navfoot::all();
+        $cart= Cart::all();
         $catego = Category::find($id);
         $course = Course::all();
-        return view('front.category_courses',Compact('catego','course','navf'));
+        return view('front.category_courses',Compact('catego','course','navf','cart'));
 
     }
     public function signup()
     { 
         $navf = Navfoot::all();
-        return view('front.signup',Compact('navf'));
+        $cart= Cart::all();
+        return view('front.signup',Compact('navf','cart'));
     }
     public function save(Request $a)
     {
@@ -71,7 +77,8 @@ class FrontendController extends Controller
     public function login()
     { 
         $navf = Navfoot::all();
-        return view('front.login',Compact('navf'));
+        $cart= Cart::all();
+        return view('front.login',Compact('navf','cart'));
     }
     public function dologin(Request $a)
     {
@@ -79,7 +86,7 @@ class FrontendController extends Controller
         $data=$a->all();
         if(Auth::attempt(['email'=>$data['email'],'password'=>$data['password']])){
             Cart::where('session_id',$session_id)->update(['user_email'=>$data['email']]);
-            return redirect("goto_cart")->with('message','Login Successfully');
+            return redirect("index")->with('message','Login Successfully');
         }
         else{
             return redirect("front/login")->with('message','Login Unsuccessfully');
@@ -89,7 +96,20 @@ class FrontendController extends Controller
         Auth::logout();
         return redirect('front/login');
      }
-    
+    public function profile()
+    {
+        $navf= Navfoot::all();
+        $cart= Cart::all();
+        $data= DB::table('course__orders')->join('course__order__products','course__orders.user_id','course__order__products.user_id')->get();
+        return view('front.profile',Compact('navf','data','cart'));
+    }
+    public function user_order_data()
+    {
+        $navf= Navfoot::all();
+        $cart= Cart::all();
+        $data= DB::table('course__orders')->join('course__order__products','course__orders.user_id','course__order__products.user_id')->get();
+        return view('front.user_order_data',Compact('navf','data','cart'));
+    }
 }
 
 

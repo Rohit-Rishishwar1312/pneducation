@@ -38,7 +38,7 @@
 									@foreach($carts as $c)
 									<tr>
 										<td class="product-remove">
-											<a href="#" class="remove">×</a>
+											<a href="{{url('front/cart_remove/'.$c->id)}}" class="remove">×</a>
 										</td>
 										<td class="product-thumbnail">
 											<a href="#"><img src="{{ url('/uploade/'.$c->course_image) }}" alt=""></a>

@@ -51,6 +51,11 @@
 								<input type="text" name="phone" id="phone-name" />
 								<label for="email-address">Email Address *</label>
 								<input type="text" name="user_email" value="{{ Auth::user()->email }}" id="email-address" />
+								<h2>Payment Method</h2>
+								<input class="cod" type="radio" name="payment_method" value="cod">CASH on Delivery
+                               <br>
+                                <input class="Paytm" type="radio" name="payment_method" value="Paytm">Paytm
+                                <br><br>
 								<h2>Additional information</h2>
 								<label for="notes">Order notes (optional)</label>
 								<textarea id="notes" name="order_note" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
@@ -82,12 +87,15 @@
 										</tr>
 										<tr class="order-total">
 											<th>Total</th>
-											<td class="total-price"><?php echo $total_amount; ?></td>
+											<td class="total-price"><?php echo $total_amount; ?>
+											<input type="hidden" name="total" value="<?php echo $total_amount; ?>" />
+											</td>
 										</tr>
 									</tbody>
 								</table>
 								<!--<a href="#" class="checkout-button">Proceed to Complete</a>-->
-								<input type="submit" name="submit" value="proceed to complete" class="btn" style="background-color:orange;width:330px;border-radius: 35px;margin-bottom:10px;padding: 10px;"></input>
+								<input type="submit" name="submit" value="proceed to complete" class="btn" onclick="return select_payment_method();"  style="background-color:orange;width:330px;border-radius: 35px;margin-bottom:10px;padding: 10px;"></input>
+								<!-- <input type="submit" name="submit" value="Proceed to complete" class="btn btn-warning" onclick="return selectpayment_method();"> -->
 
 							</div>
 						</div>

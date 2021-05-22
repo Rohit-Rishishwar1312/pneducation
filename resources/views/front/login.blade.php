@@ -12,6 +12,10 @@
    	Email:<input type="text" name="email" value="" class="form-control"><br><br>
    	Password:<input type="text" name="password" value="" class="form-control"><br><br>
    	<input type="submit" name="submit" value="submit" class="btn btn-primary" style="margin-bottom: 20px;"><br>
+    <!-- <a href="{{ route('password.update') }}" class="btn btn-info">Forgot Password</a> -->
+    <a href="{{url('login/google')}}" class="btn btn-google btn-user btn-block col-sm-10 input"> <i class="fab fa-google fa-fw"></i> Login with Google
+                               
+                               </a>
     <a href="{{url('signup')}}">Create accout</a>
    </form>
    </div><!--end col md 6-->

@@ -222,6 +222,16 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{url('admin/course_order')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>
+                Course Order
+              
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link"  
               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
               <i class="far fa-circle nav-icon"></i>

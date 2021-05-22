@@ -33,8 +33,9 @@
 								</a>
 								<span>Showing all Possible results</span>
 							</div>
-							<form class="search-course">
-								<input type="search" name="search" id="search_course" placeholder="Search Courses..." />
+							<form class="search-course" method="post" action="{{url('front/search')}}">
+								@csrf
+								<input type="text" name="search" id="search_course" placeholder="Search Courses..." />
 								<button type="submit">
 									<i class="material-icons">search</i>
 								</button>

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\FrontContact;
+use App\Course_Order;
+use App\Navfoot;
+use App\Course_Order_Product;
+use DB;
 
 class AdminController extends Controller
 {
@@ -78,6 +82,19 @@ class AdminController extends Controller
      public function coupan()
     {
         return view('admin.coupan');
+    }
+    public function course_order()
+    {
+        $data= DB::table('course__orders')->join('course__order__products','course__orders.user_id','course__order__products.user_id')->get();
+        //print_r($data);
+        return view('admin.course_order',Compact('data'));
+
+    }
+     public function invoice($id)
+    {
+        $navf= Navfoot::all();
+        $data= DB::table('course__orders')->join('course__order__products','course__orders.user_id','course__order__products.user_id')->get();
+        return view('admin.invoice',compact('data','id','navf'));
     }
     
 }

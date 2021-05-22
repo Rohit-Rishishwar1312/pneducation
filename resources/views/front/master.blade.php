@@ -15,6 +15,7 @@
 	
 	<link rel="stylesheet" href="{{url('css/studiare-assets.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{url('css/fonts/font-awesome/font-awesome.min.css')}}" media="screen">
+	<link rel="stylesheet" href="{{url('backend/plugins/fontawesome-free/css/all.min.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{url('css/fonts/elegant-icons/style.css')}}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{{url('css/fonts/iconfont/material-icons.css')}}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{{url('css/style.css')}}">
@@ -24,6 +25,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script> $(document).ready(function(){ $('#mymodel').modal('show');}); </script>
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/60a8d576c4eacc45da4392e5/1f69o3md8';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 
 </head>
 <body>
@@ -60,28 +74,66 @@
 									<li><a href="{{url('aboutus')}}">About</a></li>
 									<li><a href="blog.html">News</a></li>
 								</ul>
+								
 								<button class="search-icon">
 									<i class="material-icons open-search">search</i> 
 									<i class="material-icons close-search">close</i>
 								</button>
+					
+                                @if(Auth::check())
+                                <a href="{{url('goto_cart')}}">
 								<button class="shop-icon">
 									<i class="material-icons">shopping_cart</i>
-									<span class="studiare-cart-number">0</span>
+									<?php $count=0; ?>
+									@foreach($cart as $car)
+									@if(Auth::user()->email==$car->user_email)
+									<?php $count+=1; ?>
+									<span class="studiare-cart-number"><?php echo $count;?></span>
+									@endif
+									@endforeach
+									@if(($cart!=null)||($cart!=null))
+									<span class="studiare-cart-number"><?php echo $count;?></span>
+									@endif
 								</button>
+								</a>
+								@endif
+								
+								@if(Auth::check())
+
+								@else
+								<?php $session_id = Session::getId(); ?>
+								<a href="{{url('goto_cart')}}">
+								<button class="shop-icon">
+									<i class="material-icons">shopping_cart</i>
+									<?php $countt=0; ?>
+									@foreach($cart as $car)
+									@if($car->session_id==$session_id)
+									<?php $countt+=1; ?>
+									<span class="studiare-cart-number"><?php echo $countt;?></span>
+									@endif
+									@endforeach
+									@if(($cart!=null)||($cart!=null))
+									<span class="studiare-cart-number"><?php echo $countt;?></span>
+									@endif
+								</button>
+							    </a>
+								@endif
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<form class="search_bar">
+			<form class="search_bar" method="post" action="{{url('front/search')}}">
+				@csrf
 				<div class="container">
-					<input type="search" class="search-input" placeholder="What are you looking for...">
-					<button type="submit" class="submit">
+					<input type="search" name="search" class="search-input" placeholder="What are you looking for...">
+					<button type="submit" class="btn btn-primary" class="submit">
 						<i class="material-icons">search</i>
 					</button>
 				</div>
 			</form>
+
 
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container">
@@ -302,6 +354,7 @@
 	</div>
 	<!-- End Container -->
 
+
 	
 	<script src="{{url('js/studiare-plugins.min.js')}}"></script>
 	<script src="{{url('js/jquery.countTo.js')}}"></script>
@@ -414,7 +467,20 @@
 				});
 			}
 		}); /*ready*/
-	</script>	
+	</script>
+	<script>
+        function select_payment_method()
+        {
+        if($('.stripe').is(':checked') || $('.cod').is(':checked') || $('.Paytm').is(':checked') || $('.razorpay').is(':checked') ){
+        alert('checked');
+        }
+        else{
+        alert('Please select payment method');
+        return false;
+         }
+        }
+
+    </script>	
 
 	
 </body>

@@ -33,6 +33,8 @@ Route::get('admin/contact_data','AdminController@contact_data');
 Route::get('admin/notification','AdminController@notification');
 Route::get('admin/workshop','AdminController@workshop');
 Route::get('admin/coupan','AdminController@coupan');
+Route::get('admin/course_order','AdminController@course_order');
+Route::get('admin/invoice/{id}','AdminController@invoice');
 //Addcategory Route work + curd
 
 Route::post('addcategory/insert','CategoryController@insert');
@@ -119,8 +121,14 @@ Route::get('intern','FrontController@intern');
 Route::get('contact','FrontController@contact');
 Route::post('front/addcontact/insert','FrontContactController@insert');
 Route::get('aboutus','FrontController@aboutus');
+//front search
+Route::post('front/search','SearchController@search_course');
 //logout front
 Route::get('front/logout','FrontendController@front_logout');
+//profile
+Route::get('front/profile','FrontendController@profile');
+//user order data
+Route::get('front/profile/user_order_data','FrontendController@user_order_data');
 // Frontend Work Workshop
 Route::get('front/MPCT','FrontController@MPCT_workshop');
 Route::get('front/Xiaomi','FrontController@Xiaomi_workshop');
@@ -130,6 +138,10 @@ Route::get('front/RJIT','FrontController@RJIT_workshop');
 Route::get('checkout','FrontController@checkout');
 //course order route work 
 Route::post('front/checkout/insert_order','CourseOrderController@insert');
+//thanks route
+Route::get('thanks','CourseOrderController@thank');
+//cart remove route
+Route::get('front/cart_remove/{id}','FrontController@cart_remove');
 
 
 //Addbanner Route work + curd
@@ -158,3 +170,10 @@ Route::post('addlearn/update','LearnController@update');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Login with google
+
+Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
+Route::get('google/callback', 'Auth\LoginController@handleGoogleCallback');
+//paytym route
+Route::post('/paytm-callback', 'CourseOrderController@paytmCallback');
