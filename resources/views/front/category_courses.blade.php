@@ -106,7 +106,7 @@
 
 							<div class="ads-widget widget">
 								<a href="#">
-									<img src="{{url('upload/blog/ad-banner.jpg')}}" alt="">
+									<img src="https://inspiria.edu.in/wp-content/uploads/2018/07/best-courses-to-study-for-the-future.jpg" alt="">
 								</a>
 							</div>
 

@@ -39,6 +39,8 @@ class FrontController extends Controller
     }
     public function addtocart(Request $c)
     {
+        Session::forget('coupanAmount');
+        Session::forget('coupanCode');
         //echo "rohit";
         // print_r($c->all());
         if(Auth::check())
@@ -148,6 +150,8 @@ class FrontController extends Controller
     }
     public function quantity_update($id=null,$course_quantity=null)
     {
+        Session::forget('coupanAmount');
+        Session::forget('coupanCode');
         // echo $id;
         // echo $course_quantity;
         DB::table('carts')->where('id',$id)->increment('course_quantity',$course_quantity);
@@ -167,6 +171,8 @@ class FrontController extends Controller
     }
     public function cart_remove($id)
     {
+      Session::forget('coupanAmount');
+      Session::forget('coupanCode');
       $y= Cart::find($id);
       $delete= $y->delete();
       if($delete)

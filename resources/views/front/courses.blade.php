@@ -10,8 +10,8 @@
 			<div class="container">
 				<h1>Courses</h1>
 				<ul class="page-depth">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="courses.html">Courses</a></li>
+					<li><a href="">Home</a></li>
+					<li><a href="">Courses</a></li>
 				</ul>
 			</div>
 		</section>
@@ -28,7 +28,7 @@
 								<a href="{{url('courses')}}" class="grid-btn active">
 									<i class="fa fa-th-large" aria-hidden="true"></i>
 								</a>
-								<a href="courses-list.html" class="grid-btn">
+								<a href="" class="grid-btn">
 									<i class="fa fa-bars" aria-hidden="true"></i>
 								</a>
 								<span>Showing all Possible results</span>
@@ -102,7 +102,7 @@
 
 							<div class="ads-widget widget">
 								<a href="#">
-									<img src="upload/blog/ad-banner.jpg" alt="">
+									<img src="https://inspiria.edu.in/wp-content/uploads/2018/07/best-courses-to-study-for-the-future.jpg" alt="">
 								</a>
 							</div>
 

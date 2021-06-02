@@ -107,6 +107,7 @@ Route::get('cart/quantity_update/{id}/{course_quantity}','FrontController@quanti
 //Frontend routes for pages
 Route::get('index','FrontendController@index');
 Route::get('courses','FrontendController@courses');
+Route::get('categories','FrontendController@categories');
 Route::get('course_detail/{id}','FrontendController@course_detail');
 Route::get('category_courses/{id}','FrontendController@category_courses');
 Route::get('signup','FrontendController@signup');
@@ -127,6 +128,8 @@ Route::post('front/search','SearchController@search_course');
 Route::get('front/logout','FrontendController@front_logout');
 //profile
 Route::get('front/profile','FrontendController@profile');
+//forgot password
+Route::get('front/forgot_password','Frontendcontroller@forgot_password');
 //user order data
 Route::get('front/profile/user_order_data','FrontendController@user_order_data');
 // Frontend Work Workshop
@@ -142,6 +145,8 @@ Route::post('front/checkout/insert_order','CourseOrderController@insert');
 Route::get('thanks','CourseOrderController@thank');
 //cart remove route
 Route::get('front/cart_remove/{id}','FrontController@cart_remove');
+//Coupan Route WorK
+Route::post('front/cart/apply-coupan','FrontendController@applyCoupan');
 
 
 //Addbanner Route work + curd
@@ -177,3 +182,12 @@ Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
 Route::get('google/callback', 'Auth\LoginController@handleGoogleCallback');
 //paytym route
 Route::post('/paytm-callback', 'CourseOrderController@paytmCallback');
+
+Route::get('/clear', function() { 
+        Artisan::call('cache:clear');
+        Artisan::call('config:clear');
+        Artisan::call('config:cache');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear'); 
+        return "Cleared!"; 
+    });

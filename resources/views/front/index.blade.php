@@ -2,7 +2,7 @@
 @section("title",'Home | Pneducation')
 
 @section("content")
-    <div class="modal fade" id="mymodel" style="padding-top: 175px;">
+    <div class="modal fade" id="mymodel" style="margin-top: 325px;">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-info lg">
@@ -30,6 +30,7 @@
     </div>
   </div>
 </div>
+   
 
      <!-- home-section 
 			================================================== -->
@@ -218,7 +219,7 @@
 						<h1>Trending Collection</h1>
 					</div>
 					<div class="right-part">
-						<a class="button-one" href="#">View All Courses</a>
+						<a class="button-one" href="{{url('categories')}}">View All Categories</a>
 					</div>
 				</div>
 				<div class="collection-box">
@@ -230,7 +231,13 @@
 									<a href="{{url('category_courses/'.$cat->id)}}"><img src="{{ url('/uploade/'.$cat->ca_image)}}" alt="" style="height: 400px;" width="100%"></a>
 									<a href="{{url('category_courses/'.$cat->id)}}" class="hover-post">
 										<span class="title">{{$cat->name}}</span>
-										<span class="numb-courses">3 Courses</span>
+										<?php $count=0; ?>
+										@foreach($course as $crs)
+										@if($cat->name==$crs->c_category)
+										<?php $count+=1; ?>
+										@endif
+										@endforeach
+										<span class="numb-courses"><?php echo $count; ?> Courses</span>
 									</a>
 								</div>
 							</div>
@@ -293,12 +300,14 @@
 						<h1>Popular Courses</h1>
 					</div>
 					<div class="right-part">
-						<a class="button-one" href="#">View All Courses</a>
+						<a class="button-one" href="{{url('courses')}}">View All Courses</a>
 					</div>
 				</div>
 				<div class="popular-courses-box">
 					<div class="row">
+						<?php $count=0; ?>
                         @foreach($course as $cours)
+                        <?php $count+=1; ?>
 						<div class="col-lg-3 col-md-6">
 							<div class="course-post">
 								<div class="course-thumbnail-holder">
@@ -317,12 +326,15 @@
 									<div class="course-content-bottom">
 										
 										<div class="course-price">
-											<span>£{{$cours->c_price}}</span>
+											<span>Rs{{$cours->c_price}}</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						@if($count==4)
+						 @break;
+						@endif
 						@endforeach
 
 					</div>

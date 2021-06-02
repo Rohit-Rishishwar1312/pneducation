@@ -9,6 +9,7 @@ use App\Cart;
 use App\Navfoot;
 use App\Category;
 use App\Course;
+use App\Coupan;
 use App\User;
 use App\Notification;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +46,14 @@ class FrontendController extends Controller
         $course = Course::all();
         return view('front.courses',Compact('navf','course','catego','cart'));
     }
+    public function categories()
+    {
+        $navf = Navfoot::all();
+        $cart= Cart::all();
+        $catego = Category::all();
+        $course = Course::all();
+        return view('front.category',Compact('navf','course','catego','cart'));
+    }
     public function category_courses($id)
     {
         $navf = Navfoot::all();
@@ -70,7 +79,7 @@ class FrontendController extends Controller
         $u->save();
         if($u)
         {
-            return redirect('signup')->with('message','Addded successfully');
+            return redirect('signup')->with('message','SIGN UP successfully');
         }
 
     }
@@ -92,10 +101,15 @@ class FrontendController extends Controller
             return redirect("front/login")->with('message','Login Unsuccessfully');
         }  
     }
+
     public function front_logout(Request $request) {
         Auth::logout();
         return redirect('front/login');
      }
+     public function forgot_password()
+    {
+        return view('front.forgot_password');
+    }
     public function profile()
     {
         $navf= Navfoot::all();
@@ -109,6 +123,62 @@ class FrontendController extends Controller
         $cart= Cart::all();
         $data= DB::table('course__orders')->join('course__order__products','course__orders.user_id','course__order__products.user_id')->get();
         return view('front.user_order_data',Compact('navf','data','cart'));
+    }
+    public function applyCoupan(Request $request)
+    {
+        Session::forget('coupanAmount');
+        Session::forget('coupanCode');
+      if($request->isMethod('post'))
+      {
+        $data = $request->all();
+        // echo "<pre>";
+        // print_r($data);
+        // die;
+        $coupancount= Coupan::where('coupan_code',$data['coupan_code'])->count();
+        if($coupancount==0)
+        {
+            return redirect()->back()->with('message','Coupon Code does not exists');
+        }
+        else
+        {
+            // echo "success";die;
+            $coupanDetails = Coupan::where('coupan_code',$data['coupan_code'])->first();
+            $expiry_date = $coupanDetails->expiry_date;
+            $current_date = date('Y-m-d');
+            if($expiry_date < $current_date)
+            {
+              return redirect()->back()->with('message','Coupon Code is Expired');  
+            }
+            //Coupan is ready for discount
+            $session_id = Session::getId();
+            $userCart = Cart::where('session_id',$session_id)->get();
+            $total_amount = 0;
+            foreach($userCart as $item)
+            {
+                $total_amount = $total_amount + ($item->course_price*$item->course_quantity);
+            }
+            //check if counpon amount is fixed or percentage
+            if($coupanDetails->amount_type=="fixed")
+            {
+                $coupanAmount = $coupanDetails->amount;
+                // print_r($coupanAmount);
+                // die;
+                //Add coupan Code in session
+            Session::put('coupanAmount',$coupanAmount);
+            Session::put('coupanCode',$data['coupan_code']);
+            // echo Session::get('coupanAmount');die;
+            return redirect()->back()->with('message','Coupon Code is Successfully Applied. You are Availing Discount');
+            }
+            else
+            {
+              $coupanAmount = $total_amount * ($coupanDetails->amount/100);  
+              //Add coupan Code in session
+            Session::set('coupanAmount',$coupanAmount);
+            Session::set('coupanCode',$data['coupan_code']);
+            return redirect()->back()->with('message','Coupon Code is Successfully Applied. You are Availing Discount');
+            }
+        }
+      }
     }
 }
 

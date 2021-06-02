@@ -6,6 +6,7 @@
 	<link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/pn-images.appspot.com/o/logo%2Fcolorlogo.png?alt=media&token=0386f0aa-e1e1-4950-924f-3eedaa82d967">
 	<title>@yield("title")</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	
 
 	<meta charset="utf-8">
 
@@ -25,19 +26,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script> $(document).ready(function(){ $('#mymodel').modal('show');}); </script>
-    <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/60a8d576c4eacc45da4392e5/1f69o3md8';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+    
 
 </head>
 <body>
@@ -65,15 +54,18 @@ s0.parentNode.insertBefore(s1,s0);
 						<div class="col-lg-6">
 							<div class="right-top-line">
 								<ul class="top-menu">
-									<li><a href="#">Purchase Now</a></li>
+									@if(Auth::check())
+									<li><a href="{{url('front/profile')}}">Account</a></li>
+									@endif
 									@if(Auth::check())
 									<button class="shop-icon">
 									<a href="{{url('front/logout')}}" class="text-white">logout</a>
 								    </button>
 									@endif
 									<li><a href="{{url('aboutus')}}">About</a></li>
-									<li><a href="blog.html">News</a></li>
+									<li><a href="{{url('index')}}">Home</a></li>
 								</ul>
+
 								
 								<button class="search-icon">
 									<i class="material-icons open-search">search</i> 
@@ -91,7 +83,7 @@ s0.parentNode.insertBefore(s1,s0);
 									<span class="studiare-cart-number"><?php echo $count;?></span>
 									@endif
 									@endforeach
-									@if(($cart!=null)||($cart!=null))
+									@if(($cart!=null)||($cart==null))
 									<span class="studiare-cart-number"><?php echo $count;?></span>
 									@endif
 								</button>
@@ -133,12 +125,19 @@ s0.parentNode.insertBefore(s1,s0);
 					</button>
 				</div>
 			</form>
+			@if(session('message'))
+
+         <p class ="alert alert-success text-center">
+          {{session('message')}}
+         </p>
+          
+            @endif
 
 
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container">
 
-					<a class="navbar-brand" href="index.html">
+					<a class="navbar-brand" href="">
 						@foreach($navf as $n)
 						
 						<img src="{{ url('/uploade/'.$n->nf_logo_image) }}" alt="" style="width:250px;">
@@ -189,19 +188,44 @@ s0.parentNode.insertBefore(s1,s0);
 
 			<div class="mobile-menu">
 				<div class="search-form-box">
-					<form class="search-form">
-						<input type="search" class="search-field" placeholder="Enter keyword...">
+					<form class="search-form" method="post" action="{{url('front/search')}}">
+						@csrf
+						<input type="search" name="search" class="search-field" placeholder="Enter keyword...">
 						<button type="submit" class="search-submit">
 							<i class="material-icons open-search">search</i> 
 						</button>
 					</form>
 				</div>
 				<div class="shopping-cart-box">
-					<a class="shop-icon" href="cart.html">
+					@if(Auth::check())
+					<a class="shop-icon" href="{{url('goto_cart')}}">
 						<i class="material-icons">shopping_cart</i>
 						Cart
-						<span class="studiare-cart-number">0</span>
+						<?php $count=0; ?>
+									@foreach($cart as $car)
+									@if(Auth::user()->email==$car->user_email)
+									<?php $count+=1; ?>
+									@endif
+									@endforeach
+									<span class="studiare-cart-number"><?php echo $count;?></span>
 					</a>
+					@endif
+					@if(Auth::check())
+
+								@else
+								<?php $session_id = Session::getId(); ?>
+								<a class="shop-icon" href="{{url('goto_cart')}}">
+						<i class="material-icons">shopping_cart</i>
+						Cart
+						<?php $countt=0; ?>
+									@foreach($cart as $car)
+									@if($car->session_id==$session_id)
+									<?php $countt+=1; ?>
+									@endif
+									@endforeach
+									<span class="studiare-cart-number"><?php echo $countt;?></span>
+								</a>
+					@endif
 				</div>
 				<nav class="mobile-nav">
 					<ul class="mobile-menu-list">
@@ -242,7 +266,17 @@ s0.parentNode.insertBefore(s1,s0);
 							<a href="{{url('contact')}}">Contact</a>
 						</li>
 						<li>
+							<a href="{{url('aboutus')}}">About</a>
+						</li>
+						<li>
 						<a href="{{url('signup')}}">Signup</a>
+					    </li>
+					    <li>
+					    @if(Auth::check())
+									<button class="btn btn-primary">
+									<a href="{{url('front/logout')}}" class="text-white">logout</a>
+								    </button>
+						@endif
 					    </li>
 					    <li>
 						<a href="{{url('front/login')}}">Login</a>
@@ -280,7 +314,7 @@ s0.parentNode.insertBefore(s1,s0);
 
 						<div class="col-lg-4 col-md-6">
 							<div class="footer-widget text-widget">
-								<a href="index.html" class="footer-logo"><img src="{{ url('/uploade/'.$n->nf_logo_image) }}" alt=""></a>
+								<a href="" class="footer-logo"><img src="{{ url('/uploade/'.$n->nf_logo_image) }}" alt=""></a>
 								<p>{{$n->nf_des}}</p>
 								<ul>
 									<li>
@@ -304,13 +338,13 @@ s0.parentNode.insertBefore(s1,s0);
 							<div class="footer-widget quick-widget">
 								<h2>Quick Links</h2>
 								<ul class="quick-list">
-									<li><a href="contact.html">Contact</a></li>
-									<li><a href="pricing.html">Pricing Packages</a></li>
-									<li><a href="about.html">About Us</a></li>
-									<li><a href="courses.html">Courses</a></li>
-									<li><a href="blog.html">News</a></li>
-									<li><a href="index.html">Home</a></li>
-									<li><a href="#">Sample Page</a></li>
+									<li><a href="{{url('contact')}}">Contact</a></li>
+									<li><a href="{{url('placement')}}">Placements</a></li>
+									<li><a href="{{url('aboutus')}}">About Us</a></li>
+									<li><a href="{{url('courses')}}">Courses</a></li>
+									<li><a href="{{url('intern')}}">Intern</a></li>
+									<li><a href="{{url('index')}}">Home</a></li>
+									<li><a href="{{url('team')}}">Team</a></li>
 								</ul>
 							</div>
 						</div>
@@ -468,6 +502,7 @@ s0.parentNode.insertBefore(s1,s0);
 			}
 		}); /*ready*/
 	</script>
+
 	<script>
         function select_payment_method()
         {

@@ -80,7 +80,24 @@
 											<?php $total_amount=$total_amount+($c->course_price*$c->course_quantity); ?>
 										</tr>
 										@endforeach
-										
+									@if(!empty(Session::get('coupanAmount')))
+										<tr class="order-total">
+											<th>Subtotal</th>
+											<td><?php echo $total_amount; ?></td>
+										</tr>
+										<tr class="order-total">
+											<th>Coupan Discount</th>
+											<td><?php echo Session::get('coupanAmount'); ?></td>
+										</tr>
+										<tr class="order-total">
+											<th>Total</th>
+											<td class="total-price"><?php echo $total_amount - Session::get('coupanAmount'); ?>
+											<input type="hidden" name="total" value="<?php echo $total_amount - Session::get('coupanAmount'); ?>" />
+											<input type="hidden" name="coupan_amount" value="<?php echo Session::get('coupanAmount'); ?>" />
+											<input type="hidden" name="coupan_code" value="<?php echo Session::get('coupanCode'); ?>" />
+											</td>
+										</tr>
+									@else
 										<tr class="order-total">
 											<th>Subtotal</th>
 											<td><?php echo $total_amount; ?></td>
@@ -91,6 +108,9 @@
 											<input type="hidden" name="total" value="<?php echo $total_amount; ?>" />
 											</td>
 										</tr>
+									@endif
+
+
 									</tbody>
 								</table>
 								<!--<a href="#" class="checkout-button">Proceed to Complete</a>-->

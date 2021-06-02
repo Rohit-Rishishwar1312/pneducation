@@ -45,6 +45,13 @@
         </ul>
     </div>
                  @endif
+                 @if(session('message'))
+
+         <p class ="alert alert-success">
+          {{session('message')}}
+         </p>
+          
+                @endif
                    
               <table id="example1" class="table table-bordered table-striped">
                 <thead>

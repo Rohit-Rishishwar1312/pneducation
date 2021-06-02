@@ -75,8 +75,7 @@
 									</div>
 									
 								</div>
-								<h2>Course Content</h2>
-								<p>{{$course->c_content}}</p>
+								
 
 							</div>
 							<!-- end single course content -->
@@ -238,15 +237,15 @@
 							</div>
 							<div class="widget profile-widget">
 								<div class="top-part">
-									<img src="upload/teachers/teacher4-thumb.jpg" alt="Leslie Williams">
+									<img src="{{ url('/uploade/'.$course->c_image) }}" alt="pn">
 									<div class="name">
-										<h3>Leslie Williams</h3>
-										<span class="job-title">Math</span>
+										<h3>Course Content</h3>
+										<span class="job-title">{{$course->c_name}}</span>
 									</div>
 								</div>
 								<div class="content">
-									<p>Donec tortor massa, dapibus sit amet massa ut, tincidunt dapibus neque. Morbi ac mauris lorem.</p>
-									<a href="single-teacher.html" class="text-link">View full profile</a>
+									<p>{{$course->c_content}}</p>
+									
 								</div>
 							</div>
 						</div>

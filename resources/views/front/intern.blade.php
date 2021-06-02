@@ -9,8 +9,8 @@
 			<div class="container">
 				<h1>Intern</h1>
 				<ul class="page-depth">
-					<li><a href="index.html">Pninfosys</a></li>
-					<li><a href="teachers.html">Intern</a></li>
+					<li><a href="">Pninfosys</a></li>
+					<li><a href="">Intern</a></li>
 				</ul>
 			</div>
 		</section>
@@ -25,7 +25,7 @@
 						@foreach($in as $i)
 						<div class="col-lg-3 col-md-6">
 							<div class="teacher-post">
-								<a href="single-teacher.html">
+								<a href="">
 									<img src="{{ url('/uploade/'.$i->i_image)}}" alt="" style="height: 300px;">
 									<div class="hover-post">
 										<h2>{{$i->i_name}}</h2>

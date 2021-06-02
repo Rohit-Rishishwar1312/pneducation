@@ -45,25 +45,36 @@
         </ul>
     </div>
                  @endif
+          @if(session('message'))
+
+         <p class ="alert alert-success">
+          {{session('message')}}
+         </p>
+          
+            @endif
                    
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Address</th>
-                  <th>Order Course Image</th>
-                  <th>Order Course Name</th>  
-                  <th>Order Course Price</th>  
-                  <th>Order Course Quantity</th>
-                  <th>Order Note</th>
+                  <th>#</th>
+                  <th>Details</th>
+                  <th>Course Order Date</th>
+                  <th>Course Order status</th>
+                  <th>Product Status</th>
+                  <th>Payment Method</th>  
                   <th>Action</th>         
                 </tr>
                 </thead>
                 <tbody>
+                  <?php $i= 1; ?>
                   @foreach($data as $d)
                     <tr class="bg-light">
-                      <td>{{$d->name}}</td>
+                      <td>{{$i++}}</td>
+                      <td>
+                        <b>Order no#:</b>{{$d->id}}<br>
+                        <b>Name:</b>{{$d->name}}<br>
+                        <b>Email:</b>{{$d->user_email}}
+                      </td>
                       <td>{{$d->user_email}}</td>
                       <td>{{$d->address}} {{$d->city}} {{$d->state}} {{$d->pincode}} {{$d->country}}</td>
                       <td><img src="{{ url('/uploade/'.$d->image) }}" style="height: 100px; width: 120px; border-radius: 100%;"></td>

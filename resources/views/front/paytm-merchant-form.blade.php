@@ -1,6 +1,3 @@
-@extends('front.master')
-@section('title','Merchant Form')
-@section('content')
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,18 +13,17 @@
     {{ csrf_field()  }}
     <table border="1">
         <tbody>
-		<?php
-		foreach($paramList as $name => $value) {
-			echo '<input type="hidden" name="' . $name .'" value="' . $value . '">';
-		}
-		?>
+        <?php
+        foreach($paramList as $name => $value) {
+            echo '<input type="hidden" name="' . $name .'" value="' . $value . '">';
+        }
+        ?>
         <input type="hidden" name="CHECKSUMHASH" value="<?php echo $checkSum ?>">
         </tbody>
     </table>
     <script type="text/javascript">
-		document.f1.submit();
+        document.f1.submit();
     </script>
 </form>
 </body>
 </html>
-@endsection
