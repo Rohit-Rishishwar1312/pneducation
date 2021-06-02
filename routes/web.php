@@ -147,6 +147,8 @@ Route::get('thanks','CourseOrderController@thank');
 Route::get('front/cart_remove/{id}','FrontController@cart_remove');
 //Coupan Route WorK
 Route::post('front/cart/apply-coupan','FrontendController@applyCoupan');
+//Rating Route Work
+Route::post('front/review-rating/insert','FrontendController@insert_rating');
 
 
 //Addbanner Route work + curd

@@ -116,15 +116,15 @@
   Name:
    <input type="text" name="c_name" class="form-control"><br><br>
   Description:
-   <textarea name="c_des" class="form-control">Enter here..</textarea><br><br>
+   <textarea name="c_des" class="form-control"></textarea><br><br>
   Price:
    <input type="text" name="c_price" class="form-control"><br><br>
   Detail:
-   <textarea name="c_detail" class="form-control">Enter here..</textarea><br><br>
+   <textarea name="c_detail" class="form-control"></textarea><br><br>
   Include:
-   <textarea name="c_include" class="form-control">Enter here..</textarea><br><br>
+   <textarea name="c_include" class="form-control"></textarea><br><br>
   Content:
-   <textarea name="c_content" class="form-control">Enter here..</textarea><br><br>
+   <textarea name="c_content" class="form-control"></textarea><br><br>
   Image:
    <input type="file" name="c_image" class="form-control"><br><br>
    <select class="form-control" name="c_category">

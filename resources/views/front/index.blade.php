@@ -352,66 +352,26 @@
 				<div class="testimonial-box owl-wrapper">
 					
 					<div class="owl-carousel" data-num="1">
-					
+					    @foreach($rate as $rat)
 						<div class="item">
 							<div class="testimonial-post">
-								<p> “Design-driven, customized and reliable solution for your token development and management system to automate sales processes.”</p>
+								<p> “{{$rat->message}}.”</p>
 								<div class="profile-test">
 									<div class="avatar-holder">
 										<img src="upload/testimonials/testimonial-avatar-1.jpg" alt="">
 									</div>
 									<div class="profile-data">
-										<h2>Nicole Alatorre</h2>
-										<p>Designer</p>
+										@foreach($user as $usr)
+										@if($rat->user_id==$usr->id)
+										<h2>{{$usr->name}}</h2>
+										<p>Student</p>
+										@endif
+										@endforeach
 									</div>
 								</div>
 							</div>
 						</div>
-					
-						<div class="item">
-							<div class="testimonial-post">
-								<p> “Design-driven, customized and reliable solution for your token development and management system to automate sales processes.”</p>
-								<div class="profile-test">
-									<div class="avatar-holder">
-										<img src="upload/testimonials/testimonial-avatar-2.jpg" alt="">
-									</div>
-									<div class="profile-data">
-										<h2>Nicole Alatorre</h2>
-										<p>Designer</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					
-						<div class="item">
-							<div class="testimonial-post">
-								<p> “Design-driven, customized and reliable solution for your token development and management system to automate sales processes.”</p>
-								<div class="profile-test">
-									<div class="avatar-holder">
-										<img src="upload/testimonials/testimonial-avatar-3.jpg" alt="">
-									</div>
-									<div class="profile-data">
-										<h2>Nicole Alatorre</h2>
-										<p>Designer</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					
-						<div class="item">
-							<div class="testimonial-post">
-								<p> “Design-driven, customized and reliable solution for your token development and management system to automate sales processes.”</p>
-								<div class="profile-test">
-									<div class="avatar-holder">
-										<img src="upload/testimonials/testimonial-avatar-4.jpg" alt="">
-									</div>
-									<div class="profile-data">
-										<h2>Nicole Alatorre</h2>
-										<p>Designer</p>
-									</div>
-								</div>
-							</div>
-						</div>
+						@endforeach	
 
 					</div>
 				</div>

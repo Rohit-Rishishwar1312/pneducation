@@ -147,59 +147,53 @@
 											</div>
 										</div>
 									</div>
+							
 									<ul class="comments">
+										@foreach($rate as $rat)
+										@if($rat->course_id==$course->id)
 										<li>
 											<div class="image-holder">
 												<img src="upload/blog/avatar4.jpg" alt="">
 											</div>
 											<div class="comment-content">
+												@foreach($user as $usr)
+												@if($rat->user_id==$usr->id)
 												<h2>
-													Steven Smith
+													{{$usr->name}}
 													<span class="rating">
 														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
+														
 													</span>
 												</h2>
-												<p>top design</p>
+												@endif
+												@endforeach
+												<p>{{$rat->message}}</p>
 											</div>
 										</li>
-										<li>
-											<div class="image-holder">
-												<img src="upload/blog/avatar4.jpg" alt="">
-											</div>
-											<div class="comment-content">
-												<h2>
-													Margaret
-													<span class="rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-													</span>
-												</h2>
-												<p>Easy to install, reasonable price!</p>
-											</div>
-										</li>
+										@endif
+										@endforeach
+										
 									</ul>
-									<form class="add-review">
+									@if(Auth::check())
+									<form class="add-review" method="post" action="{{url('front/review-rating/insert')}}">
+										@csrf
+										<input type="hidden" id="first-name" name="user_id" value="{{ Auth::user()->id }}" />
+										<input type="hidden" id="first-name" name="course_id" value="{{$course->id}}" />
 										<h1>Add a Review</h1>
 										<label>Your rating</label>
-										<select>
+										<select name="rating">
 											<option>Rate...</option>
-											<option>Perfect</option>
-											<option>Good</option>
-											<option>Average</option>
-											<option>Not that bad</option>
-											<option>Very Poor</option>
+											<option value="5">Perfect</option>
+											<option value="4">Good</option>
+											<option value="3">Average</option>
+											<option value="2">Not that bad</option>
+											<option value="1">Very Poor</option>
 										</select>
 										<label>Your Review</label>
-										<textarea></textarea>
+										<textarea name="message"></textarea>
 										<button type="submit">Submit</button>
 									</form>
+									@endif
 								</div>
 							</div>
 							<!-- end course reviews -->

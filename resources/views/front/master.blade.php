@@ -235,24 +235,7 @@
 						<li>
 							<a href="{{url('courses')}}">Courses</a>
 						</li>
-                        <li class="drop-link">
-								<a href="">Workshop <i class="fa fa-angle-down"></i></a>
-								<ul class="dropdown">
-									<li>
-										<a href="{{url('front/Xiaomi')}}">Xiaomi MI Company</a>
-									</li>
-									<li>
-										<a href="{{url('front/Bentchair')}}">Bentchair Company</a>
-									</li>
-									<li>
-										<a href="{{url('front/MPCT')}}">MPCT College</a>
-									</li>
-									<li>
-										<a href="{{url('front/RJIT')}}">RJIT College</a>
-									</li>
-								</ul>
-							</li>
-						<li>
+                        <li>
 							<a href="{{url('team')}}">Our Team</a>
 
 						</li>
@@ -269,7 +252,9 @@
 							<a href="{{url('aboutus')}}">About</a>
 						</li>
 						<li>
+						<button class="btn btn-primary">
 						<a href="{{url('signup')}}">Signup</a>
+					    </button>
 					    </li>
 					    <li>
 					    @if(Auth::check())
@@ -279,7 +264,9 @@
 						@endif
 					    </li>
 					    <li>
+					    <button class="btn btn-primary mt-2">
 						<a href="{{url('front/login')}}">Login</a>
+					    </button>
 					    </li>
 					</ul>
 				</nav>

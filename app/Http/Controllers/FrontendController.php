@@ -7,6 +7,7 @@ use App\Banner;
 use App\Learn;
 use App\Cart;
 use App\Navfoot;
+use App\Rating;
 use App\Category;
 use App\Course;
 use App\Coupan;
@@ -23,20 +24,24 @@ class FrontendController extends Controller
     {
         $bann = Banner::all();
         $lear = Learn::all();
+        $rate= Rating::all();
+        $user= User::all();
         $navf = Navfoot::all();
         $cart= Cart::all();
         $catego = Category::all();
         $course = Course::all();
         $notific= Notification::all();
-        return view('front.index',Compact('bann','lear','navf','catego','course','notific','cart'));
+        return view('front.index',Compact('bann','lear','navf','catego','course','notific','cart','rate','user'));
     }
     //frontend course_detail
     public function course_detail($id)
     {
         $course = Course::find($id);
         $cart= Cart::all();
+        $rate= Rating::all();
+        $user= User::all();
         $navf= Navfoot::all();
-        return view('front.course_detail',Compact('navf','course','cart'));
+        return view('front.course_detail',Compact('navf','course','cart','rate','user'));
     }
     public function courses()
     {
@@ -179,6 +184,19 @@ class FrontendController extends Controller
             }
         }
       }
+    }
+    public function insert_rating(Request $a)
+    {
+        $ir = new Rating();
+        $ir->user_id=$a->user_id;
+        $ir->course_id=$a->course_id;
+        $ir->rating=$a->rating;
+        $ir->message=$a->message;
+        $ir->save();
+        if($ir)
+        {
+            return redirect()->back()->with('message','Rating successfully Given');
+        }
     }
 }
 
