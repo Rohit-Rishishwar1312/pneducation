@@ -47,7 +47,7 @@
 							@endforeach
 
 							@if(Auth::check())
-							<p><i class="fa fa-user" aria-hidden="true"></i> <span>welcome {{ Auth::user()->name }}</span></p>
+							<p><i class="fa fa-user" aria-hidden="true"></i> <span>{{Auth::user()->name }}</span></p>
 							@endif
 							
 						</div>
@@ -258,7 +258,7 @@
 					    </li>
 					    <li>
 					    @if(Auth::check())
-									<button class="btn btn-primary">
+									<button class="btn btn-primary mt-2">
 									<a href="{{url('front/logout')}}" class="text-white">logout</a>
 								    </button>
 						@endif

@@ -255,8 +255,8 @@
 		<section class="countdown-section">
 			<div class="container">
 				<div class="countdown-box">
-					<h1>Limited Time: Get My Book For Free!</h1>
-					<p>Learn anytime, anywhere. Best Courses. Top Instituion.</p>
+					<h1>Limited Time: Apply Coupan PNC1312 To Get Discount On Our Courses!</h1>
+					<p>Learn anytime, anywhere. Best Courses. Top Institute.</p>
 					<div class="countdown-item" data-date="2019/12/14">
 						<div class="countdown-col">
 							<span class="countdown-unit countdown-days">
@@ -283,8 +283,8 @@
 							</span>
 						</div>
 					</div>
-					<p>We offer professional SEO services that help websites increase their organic search score drastically in order to compete for the highest rankings.</p>
-					<a class="button-two" href="#">Get my free book</a>
+					<p>We offer courses on some of the most popular frontend and backend technologies and on demand on students we have also started sone additional courses and our courses are best in the market</p>
+					<a class="button-two" href="{{url('courses')}}">Go to Courses</a>
 				</div>
 			</div>
 		</section>
@@ -358,7 +358,7 @@
 								<p> “{{$rat->message}}.”</p>
 								<div class="profile-test">
 									<div class="avatar-holder">
-										<img src="upload/testimonials/testimonial-avatar-1.jpg" alt="">
+										<img src="https://cdn.iconscout.com/icon/free/png-256/user-1648810-1401302.png" alt="">
 									</div>
 									<div class="profile-data">
 										@foreach($user as $usr)
