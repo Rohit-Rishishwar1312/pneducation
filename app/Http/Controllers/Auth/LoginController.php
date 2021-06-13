@@ -59,7 +59,7 @@ class LoginController extends Controller
      
                 Auth::login($finduser);
     
-                return redirect('/index');//yaha par
+                return redirect('/');//yaha par
      
             }else{
                 $newUser = User::create([
@@ -71,7 +71,7 @@ class LoginController extends Controller
     
                 Auth::login($newUser);
      
-                return redirect('/index');
+                return redirect('/');
             }
     
         } catch (Exception $e) {

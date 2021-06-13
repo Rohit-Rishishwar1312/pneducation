@@ -289,13 +289,6 @@
 									<h3>Course Includes</h3>
 									<p class="text-justify" style="line-height: 30px;">{{$course->c_include}}</p>
 								</div>
-								<ul class="share-list">
-									<li><span>Share:</span></li>
-									<li><a href="#" class="facebook"><i class="fa fa-facebook-f"></i></a></li>
-									<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
-									<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-								</ul>
 							</div>
 							<div class="widget profile-widget">
 								<div class="top-part">

@@ -2,12 +2,9 @@
 
 @section('content')
 
-
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-    @foreach($data as $d)
-    @if($id==$d->id)
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -17,7 +14,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Admin</a></li>
               <li class="breadcrumb-item active">Invoice</li>
             </ol>
           </div>
@@ -67,20 +64,26 @@
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
                   To
+                  <?php $count=0; ?>
+                  @foreach($data as $d)
+                  @foreach($course_user as $c)
+                  @if($c->id==$d->course_order_id&&$count==0)
                   <address>
-                    <strong>{{$d->name}}</strong><br>
-                    {{$d->address}}<br>
-                    {{$d->city}} {{$d->state}} {{$d->pincode}}<br>
-                    Email: {{$d->user_email}}
+                    <?php $count+=1; ?>
+                    <strong>Name:</strong> {{$c->name}}<br>
+                    <strong>Address: </strong>  {{$c->address}}
+                    {{$c->city}} {{$c->state}} {{$c->pincode}}<br>
+                    <strong>Email: </strong>  {{$c->user_email}}
                   </address>
+                  @endif
+                  @endforeach
+                  @endforeach
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 invoice-col">
                   <b>Invoice <?php echo uniqid('PN'); ?></b><br>
                   <br>
-                  <b>Course ID:</b> {{ $d->course_id }}<br>
                   <b>Order ID:</b> {{ $d->course_order_id }}<br>
-                  <b>Payment Status:</b> {{ $d->order_status }}<br>
                   
                 </div>
                 <!-- /.col -->
@@ -101,6 +104,9 @@
                       <th scope="col">Course Price</th>
                     </tr>
                     </thead>
+                    <?php $total_amount=0; ?>
+                    @foreach($data as $d)
+                    <?php $total_amount=$total_amount+($d->course_price*$d->course_quantity); ?>
                     <tbody>
                     <tr class="text-center">
                       <td scope="col"> {{ $d->course_quantity }} </td>
@@ -113,6 +119,7 @@
                       <td scope="col">{{ $d->course_price }}</td>
                     </tr>
                     </tbody>
+                    @endforeach
                   </table>
                 </div>
                 <!-- /.col -->
@@ -129,12 +136,28 @@
                     <table class="table">
                       <tr>
                         <th style="width:50%">Subtotal:</th>
-                        <td>{{$d->course_price}}</td>
+                        <td><?php echo $total_amount; ?></td>
                       </tr>
-                      <tr>
+                      <?php $count=0; ?>
+                        @foreach($data as $d)
+                        @foreach($course_user as $c)
+                        @if($c->id==$d->course_order_id&&$count==0)
+                        <?php $count+=1; ?>
+                        <tr>
+                        <th>Coupan Code:</th>
+                        <td>{{$c->coupan_code}}</td>
+                        </tr>
+                        <tr>
+                        <th>Coupan Amount:</th>
+                        <td>{{$c->coupan_amount}}</td>
+                        </tr>
+                        <tr>
                         <th>Total:</th>
-                        <td>{{$d->course_price*$d->course_quantity}}</td>
-                      </tr>
+                        <td>{{$c->total}}</td>
+                        </tr> 
+                        @endif
+                        @endforeach
+                        @endforeach
                     </table>
                   </div>
                 </div>
@@ -146,9 +169,6 @@
               <div class="row no-print">
                 <div class="col-12">
                   <a href="#" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                    Payment
-                  </button>
                   <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                     <i class="fas fa-download"></i> Generate PDF
                   </button>
@@ -161,8 +181,7 @@
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    @endif
-    @endforeach
+
 
   </div>
   <!-- /.content-wrapper -->

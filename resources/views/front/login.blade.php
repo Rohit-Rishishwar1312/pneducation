@@ -12,6 +12,7 @@
                 <span id="reauth-email" class="reauth-email"></span>
                 <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                 <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <input type="hidden" name="role" value="1">
                 
                 <button class="btn btn-lg btn-primary btn-block btn-signin btt" type="submit">Sign in</button>
             </form><!-- /form -->

@@ -20,6 +20,7 @@ class CourseOrderController extends Controller
     	$co = new Course_Order();
     	$co->name=$a->name;
     	$co->user_email=$a->user_email;
+        $co->phone=$a->phone;
     	$co->user_id=$a->user_id;
     	$co->country=$a->country;
     	$co->address=$a->address;
@@ -132,17 +133,18 @@ public function paytmCallback( Request $request ) {
         if ( 'TXN_SUCCESS' === $request['STATUS'] ) {
             $transaction_id = $request['TXNID'];
             $order = Course_Order::where('order_id', $order_id )->first();
+            $order->order_status= 'paid';
             $order->payment_status = 'complete';
             $order->transaction_id = $transaction_id;
-            $order->save();
-           
-           $user_email = Auth::user()->email;
-           DB::table('carts')->where('user_email',$user_email)->delete();
-            return view('front.order-complete', compact( 'order','navf','cart') );
+            $order->save();         
+            $user_email = Auth::user()->email;
+            echo $user_email;die;
+            DB::table('carts')->where('user_email',$user_email)->delete();
+            return view('front.order-complete', compact('order','navf','cart') );
            
 
         } else if( 'TXN_FAILURE' === $request['STATUS'] ){
-            return view( 'front.payment-failed' );
+            return view('front.payment-failed',compact('navf','cart') );
         }
     }
 

@@ -25,13 +25,13 @@
 					<div class="col-lg-10">
 						<div class="courses-top-bar">
 							<div class="courses-view">
-								<a href="" class="grid-btn">
+								<a href="#" class="grid-btn">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</a>
-								<a href="" class="grid-btn active">
+								<a href="#" class="grid-btn active">
 									<i class="fa fa-check" aria-hidden="true"></i>
 								</a>
-								<span>Showing all possible search results for you</span>
+								<span>Showing all possible search results</span>
 							</div>
 							
 						</div>
@@ -42,7 +42,7 @@
 						<div class="course-post list-style">
 							<div class="course-thumbnail-holder">
 								<a href="{{url('course_detail/'.$r->id)}}">
-									<img src="{{ url('/uploade/'.$r->c_image) }}" alt="">
+									<img src="{{ url('/uploade/'.$r->c_image) }}" class="img-fluid d-block" style="height:200px;" alt="">
 								</a>
 							</div>
 							<div class="course-content-holder">

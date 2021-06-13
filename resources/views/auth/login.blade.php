@@ -28,7 +28,7 @@
     <div class="card-body login-card-body bg-info" style="height:380px;">
       <p class="login-box-msg mb-4 mt-4">Admin Sign in to start Managing PNeducation</p>
 
-      <form method="POST" action="{{ route('login') }}">
+      <form method="POST" action="{{url('addlogin/dologin')}}">
         @csrf
         <div class="input-group mb-4">
           <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -52,6 +52,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+          <input type="hidden" name="role" value="0">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

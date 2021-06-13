@@ -75,13 +75,23 @@
                         <b>Name:</b>{{$d->name}}<br>
                         <b>Email:</b>{{$d->user_email}}
                       </td>
-                      <td>{{$d->user_email}}</td>
-                      <td>{{$d->address}} {{$d->city}} {{$d->state}} {{$d->pincode}} {{$d->country}}</td>
-                      <td><img src="{{ url('/uploade/'.$d->image) }}" style="height: 100px; width: 120px; border-radius: 100%;"></td>
-                      <td>{{$d->course_name}}</td>
-                      <td>{{$d->course_price}}</td>
-                      <td>{{$d->course_quantity}}</td>
-                      <td>{{$d->order_note}}</td>
+                      <td>{{$d->created_at}}</td>
+                      <form method="post" action="{{url('admin/update_order_status/'.$d->id)}}">
+                      @csrf
+                      <td><strong>{{$d->order_status}}</strong><select class="form-control" name="order_status">
+                        <option>Select</option>
+                        <option>Pending</option>
+                        <option>Shipped</option>
+                        <option>Delivered</option>
+                        <option>Delivered and Paid</option>
+                      </select><input class="btn-primary m-2 p-2" type="submit" name="submit" value="update"></td>
+                      </form>
+                      <td>{{$d->payment_status}}</td>
+                      <td>{{$d->payment_method}}</td>
+                      <td><a href="{{url('admin/view_order/'.$d->id)}}">
+                            <input class="btn-danger" type="submit" name="submit" value="View">
+                          </a>
+                      </td>
                       <td><a href="{{url('admin/invoice/'.$d->id)}}">
                             <input class="btn-danger" type="submit" name="submit" value="Invoice">
                           </a>

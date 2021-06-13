@@ -13,12 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 //Admin controller work + curd
-
+Route::group(['middleware' =>['auth']],function(){
 Route::get('admin','AdminController@index');
 Route::get('admin/category','AdminController@category');
 Route::get('admin/course','AdminController@course');
@@ -35,6 +32,8 @@ Route::get('admin/workshop','AdminController@workshop');
 Route::get('admin/coupan','AdminController@coupan');
 Route::get('admin/course_order','AdminController@course_order');
 Route::get('admin/invoice/{id}','AdminController@invoice');
+Route::get('admin/view_order/{id}','AdminController@view_order');
+Route::post('admin/update_order_status/{id}','AdminController@update_order_status');
 //Addcategory Route work + curd
 
 Route::post('addcategory/insert','CategoryController@insert');
@@ -98,6 +97,42 @@ Route::get('addcoupan/delete/{id}','CoupanController@delete');
 Route::get('addcoupan/edit/{id}','CoupanController@edit');
 Route::post('addcoupan/update','CoupanController@update');
 
+//Addbanner Route work + curd
+Route::post('addbanner/insert','BannerController@insert');
+Route::get('admin/banner','BannerController@display');
+Route::get('addbanner/delete/{id}','BannerController@delete');
+Route::get('addbanner/edit/{id}','BannerController@edit');
+Route::post('addbanner/update','BannerController@update');
+
+//Addnavfoot Route work + curd
+Route::post('addnavfoot/insert','NavfootController@insert');
+Route::get('admin/navfoot','NavfootController@display');
+Route::get('addnavfoot/edit/{id}','NavfootController@edit');
+Route::post('addnavfoot/update','NavfootController@update');
+Route::get('addnavfoot/delete/{id}','NavfootController@delete');
+
+//Addlearn Route work + curd
+Route::post('addlearn/insert','LearnController@insert');
+Route::get('admin/learn','LearnController@display');
+Route::get('addlearn/delete/{id}','LearnController@delete');
+Route::get('addlearn/edit/{id}','LearnController@edit');
+Route::post('addlearn/update','LearnController@update');
+
+
+});//middleware closed
+
+
+Route::group(['middleware' =>['FrontLogin']],function(){
+//user order data
+Route::get('front/profile/user_order_data/{user_id}','FrontendController@user_order_data');
+//profile
+Route::get('front/profile','FrontendController@profile');
+Route::get('front/invoice/{id}','FrontendController@invoice');
+Route::get('front/view_order/{id}','FrontendController@view_order');
+});//middleware closed front
+
+
+
 //cart
 Route::get('cart/quantity_update/{id}/{course_quantity}','FrontController@quantity_update');
 
@@ -105,7 +140,7 @@ Route::get('cart/quantity_update/{id}/{course_quantity}','FrontController@quanti
 
 
 //Frontend routes for pages
-Route::get('index','FrontendController@index');
+Route::get('/','FrontendController@index');
 Route::get('courses','FrontendController@courses');
 Route::get('categories','FrontendController@categories');
 Route::get('course_detail/{id}','FrontendController@course_detail');
@@ -126,8 +161,7 @@ Route::get('aboutus','FrontController@aboutus');
 Route::post('front/search','SearchController@search_course');
 //logout front
 Route::get('front/logout','FrontendController@front_logout');
-//profile
-Route::get('front/profile','FrontendController@profile');
+
 //forgot password
 Route::get('front/forgot_password','Frontendcontroller@forgot_password');
 //user order data
@@ -151,30 +185,9 @@ Route::post('front/cart/apply-coupan','FrontendController@applyCoupan');
 Route::post('front/review-rating/insert','FrontendController@insert_rating');
 
 
-//Addbanner Route work + curd
-Route::post('addbanner/insert','BannerController@insert');
-Route::get('admin/banner','BannerController@display');
-Route::get('addbanner/delete/{id}','BannerController@delete');
-Route::get('addbanner/edit/{id}','BannerController@edit');
-Route::post('addbanner/update','BannerController@update');
-
-//Addnavfoot Route work + curd
-Route::post('addnavfoot/insert','NavfootController@insert');
-Route::get('admin/navfoot','NavfootController@display');
-Route::get('addnavfoot/edit/{id}','NavfootController@edit');
-Route::post('addnavfoot/update','NavfootController@update');
-Route::get('addnavfoot/delete/{id}','NavfootController@delete');
-
-//Addlearn Route work + curd
-Route::post('addlearn/insert','LearnController@insert');
-Route::get('admin/learn','LearnController@display');
-Route::get('addlearn/delete/{id}','LearnController@delete');
-Route::get('addlearn/edit/{id}','LearnController@edit');
-Route::post('addlearn/update','LearnController@update');
 
 
-
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 

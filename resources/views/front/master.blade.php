@@ -63,7 +63,7 @@
 								    </button>
 									@endif
 									<li><a href="{{url('aboutus')}}">About</a></li>
-									<li><a href="{{url('index')}}">Home</a></li>
+									<li><a href="{{url('/')}}">Home</a></li>
 								</ul>
 
 								
@@ -152,7 +152,7 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav mr-auto">
 							<li class="drop-link">
-								<a class="active" href="{{url('index')}}">Home</a>
+								<a class="active" href="{{url('/')}}">Home</a>
 							</li>
 							
 							<li class="drop-link">
@@ -230,7 +230,7 @@
 				<nav class="mobile-nav">
 					<ul class="mobile-menu-list">
 						<li>
-							<a href="{{url('index')}}">Home</a>
+							<a href="{{url('/')}}">Home</a>
 						</li>
 						<li>
 							<a href="{{url('courses')}}">Courses</a>
@@ -251,6 +251,9 @@
 						<li>
 							<a href="{{url('aboutus')}}">About</a>
 						</li>
+						@if(Auth::check())
+									<li><a href="{{url('front/profile')}}">Account</a></li>
+						@endif
 						<li>
 						<button class="btn btn-primary">
 						<a href="{{url('signup')}}">Signup</a>
@@ -330,7 +333,7 @@
 									<li><a href="{{url('aboutus')}}">About Us</a></li>
 									<li><a href="{{url('courses')}}">Courses</a></li>
 									<li><a href="{{url('intern')}}">Intern</a></li>
-									<li><a href="{{url('index')}}">Home</a></li>
+									<li><a href="{{url('/')}}">Home</a></li>
 									<li><a href="{{url('team')}}">Team</a></li>
 								</ul>
 							</div>
@@ -358,12 +361,7 @@
 					<div class="copyright-inner">
 						<div class="copyright-cell"> &copy; 2021 <span class="highlight">pninfosys</span>. Created by Rohit Rishishwar.</div>
 						<div class="copyright-cell">
-							<ul class="studiare-social-links">
-								<li><a href="#" class="facebook"><i class="fa fa-facebook-f"></i></a></li>
-								<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-							</ul>
+							
 						</div>
 					</div>
 				</div>
