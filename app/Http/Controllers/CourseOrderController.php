@@ -138,9 +138,8 @@ public function paytmCallback( Request $request ) {
             $order->transaction_id = $transaction_id;
             $order->save();         
             $user_email = Auth::user()->email;
-            echo $user_email;die;
             DB::table('carts')->where('user_email',$user_email)->delete();
-            return view('front.order-complete', compact('order','navf','cart') );
+            return view('front.order-complete',compact('order','navf','cart') );
            
 
         } else if( 'TXN_FAILURE' === $request['STATUS'] ){

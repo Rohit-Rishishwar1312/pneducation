@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
+use Session;
 use Auth;
 use App\User;
 
@@ -58,6 +59,7 @@ class LoginController extends Controller
             if($finduser){
      
                 Auth::login($finduser);
+                Session::put('rohit',Auth::user()->email);
     
                 return redirect('/');//yaha par
      

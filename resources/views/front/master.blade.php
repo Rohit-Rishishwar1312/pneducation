@@ -54,16 +54,15 @@
 						<div class="col-lg-6">
 							<div class="right-top-line">
 								<ul class="top-menu">
-									@if(Auth::check())
-									<li><a href="{{url('front/profile')}}">Account</a></li>
-									@endif
+									<li><a href="{{url('aboutus')}}">About</a></li>
 									@if(Auth::check())
 									<button class="shop-icon">
 									<a href="{{url('front/logout')}}" class="text-white">logout</a>
 								    </button>
 									@endif
-									<li><a href="{{url('aboutus')}}">About</a></li>
 									<li><a href="{{url('/')}}">Home</a></li>
+								
+									
 								</ul>
 
 								
@@ -179,9 +178,16 @@
 							<li><a href="{{url('intern')}}">Intern</a></li>
 							<li><a href="{{url('placement')}}">Placement</a></li>
 							<li><a href="{{url('contact')}}">Contact</a></li>
+							@if(Auth::check())
+									<li><a href="{{url('front/profile')}}">Account</a></li>
+							@endif
 						</ul>
+						@if(Auth::check())
+
+						@else
 						<a href="{{url('signup')}}" class="login-button"><button class="btn text-white" style="border-radius: 20px;">Signup</button></a>
 						<a href="{{url('front/login')}}" class="login-button"><button class="btn text-white" style="border-radius: 20px;">Login</button></a>
+						@endif
 					</div>
 				</div>
 			</nav>

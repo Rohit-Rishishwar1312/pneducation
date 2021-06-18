@@ -47,31 +47,48 @@ class FrontController extends Controller
         {
          $user_email= Auth::User()->email;   
          $cart = new Cart();
-         $cart->course_id=$c->course_id;
-         $cart->course_name=$c->course_name;
-         $cart->course_price=$c->course_price;
-         $cart->course_image=$c->course_image;
-         $cart->user_email=$user_email;
-         $cart->save();
-         if($cart)
+         $check = Cart::where('user_email',$user_email)->where('course_id',$c->course_id)->get();
+         if($check->isEmpty())
          {
+          $cart->course_id=$c->course_id;
+          $cart->course_name=$c->course_name;
+          $cart->course_price=$c->course_price;
+          $cart->course_image=$c->course_image;
+          $cart->user_email=$user_email;
+          $cart->save();
+          if($cart)
+          {
             return redirect('goto_cart');
+          }
          }
+         else
+         {
+          return redirect()->back()->with('message','course already exist in cart increase quantity');
+         }
+         
         }
         else
         {
         $session_id = Session::getId();
         //print_r($session_id);
         $cart = new Cart();
-        $cart->course_id=$c->course_id;
-        $cart->course_name=$c->course_name;
-        $cart->course_price=$c->course_price;
-        $cart->course_image=$c->course_image;
-        $cart->session_id=$session_id;
-        $cart->save();
-         if($cart)
+        $check = Cart::where(session_id,$session_id)->where(course_id,$c->course_id)->get();
+        if($check->isEmpty())
          {
+          $cart->course_id=$c->course_id;
+          $cart->course_name=$c->course_name;
+          $cart->course_price=$c->course_price;
+          $cart->course_image=$c->course_image;
+          $cart->session_id=$session_id;
+          $cart->save();
+          if($cart)
+          {
             return redirect('goto_cart');
+          }
+         }
+         else
+         {
+          return redirect()->back()->with('message','already exists increase quantity');
          }
         }
     }
