@@ -127,7 +127,7 @@ public function handlePaytmRequest( $order_id, $amount ) {
 public function paytmCallback( Request $request ) {
             // return $request;
         $order_id = $request['ORDERID'];
-        $navf= Navfoot::all();
+        // $navf= Navfoot::all();
         $cart= Cart::all();
 
         if ( 'TXN_SUCCESS' === $request['STATUS'] ) {
@@ -138,6 +138,17 @@ public function paytmCallback( Request $request ) {
             $order->transaction_id = $transaction_id;
             $order->save();         
             $user_email = Auth::user()->email;
+            $user = User::where('email',$user_email)->first();
+            $to = $user_email;
+            $navf = Navfoot::all();
+            $corder = Course_Order::all();
+            $corderd = Course_Order_Product::all();
+            $id = $order->id;
+            $subject = 'User Order Successful';
+            $message = "Your Order Is Successful In PnInfosys Course Program \n\n";
+            Mail::send('front.order_email', ['msg' => $message,'navbar' => $navf,'corder' => $corder,'corderd' => $corderd,'id' => $id, 'user' => $user] , function($message) use ($to){ 
+                $message->to($to, 'User')->subject('User Order');  
+            });
             DB::table('carts')->where('user_email',$user_email)->delete();
             return view('front.order-complete',compact('order','navf','cart') );
            

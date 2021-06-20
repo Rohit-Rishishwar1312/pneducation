@@ -22,12 +22,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" name="password" class="form-control" placeholder="Your Password *" value=""/>
+                                <input type="password" name="password" class="form-control" placeholder="Your Password *" value=""/>
                             </div>
                           
                         </div>
                     </div>
-                    <input type="submit" name="submit" value="submit"  id="btnsubmit">
+                    <input class="btn btn-primary" type="submit" name="submit" value="submit"  id="btnsubmit">
                 </div>
             </div>
             </form>

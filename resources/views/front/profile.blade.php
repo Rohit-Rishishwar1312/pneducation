@@ -42,6 +42,7 @@
                     </div>       
                 </div>
                 @endif
+                @endforeach
                 @if((($data!=null)||($data==null))&&($count!=1))
                 <div class="col-md-10 table-bordered bg-light" style="margin: 20px;padding: 40px;">
                     <h4><span style="border-bottom: 2px solid black"><i class="fa fa-user-circle" aria-hidden="true"></i> User Profile Details </span></h4><br>
@@ -67,7 +68,6 @@
                     </div>       
                 </div>
                 @endif
-                @endforeach
                 <div class="col-md-1"></div>
                 
             </div>
